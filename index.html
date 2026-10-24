@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171715" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+    <title>Link en Bio</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --page: #f5f2ec;
+        --surface: #ffffff;
+        --surface-hover: #fffaf3;
+        --text: #1f211f;
+        --muted: #656861;
+        --line: #ddd9d1;
+        --accent: #d85e19;
+        --accent-soft: #fbe5d7;
+        --badge-text: #9a3c0b;
+        --shadow: 0 8px 24px rgba(49, 39, 28, 0.07);
+        --focus: #0d70b7;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --page: #171715;
+          --surface: #242421;
+          --surface-hover: #2c2924;
+          --text: #f7f5f0;
+          --muted: #b9b7b0;
+          --line: #3d3b36;
+          --accent: #f28a4a;
+          --accent-soft: #4a2b1d;
+          --badge-text: #ffc49f;
+          --shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+          --focus: #63b8f2;
+        }
+      }
+
+      * { box-sizing: border-box; }
+
+      html { min-width: 320px; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--page);
+        color: var(--text);
+        font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      main {
+        width: min(100%, 680px);
+        margin: 0 auto;
+        padding: max(40px, env(safe-area-inset-top)) 18px max(34px, env(safe-area-inset-bottom));
+      }
+
+      .intro {
+        padding: 4px 4px 24px;
+      }
+
+      .count {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 0 13px;
+        color: var(--badge-text);
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .count::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      h1 {
+        max-width: 520px;
+        margin: 0;
+        font-size: clamp(2rem, 8vw, 3.25rem);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+        font-weight: 700;
+      }
+
+      .intro p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      .links {
+        display: grid;
+        gap: 10px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .product-link {
+        display: grid;
+        grid-template-columns: 42px minmax(0, 1fr) 22px;
+        align-items: center;
+        gap: 13px;
+        min-height: 76px;
+        padding: 12px 15px 12px 12px;
+        color: var(--text);
+        text-decoration: none;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        box-shadow: var(--shadow);
+        -webkit-tap-highlight-color: transparent;
+        transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+      }
+
+      .product-link:hover {
+        background: var(--surface-hover);
+        border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+      }
+
+      .product-link:active { transform: translateY(1px); }
+
+      .product-link:focus-visible {
+        outline: 3px solid color-mix(in srgb, var(--focus) 60%, transparent);
+        outline-offset: 3px;
+      }
+
+      .number {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 13px;
+        background: var(--accent-soft);
+        color: var(--badge-text);
+        font-size: 0.82rem;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .copy { min-width: 0; }
+
+      .name,
+      .description {
+        display: block;
+        overflow-wrap: anywhere;
+      }
+
+      .name {
+        font-size: 1rem;
+        line-height: 1.22;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .description {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.25;
+      }
+
+      .arrow {
+        width: 20px;
+        height: 20px;
+        color: var(--accent);
+      }
+
+      footer {
+        margin: 26px auto 0;
+        padding: 0 8px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.74rem;
+        line-height: 1.45;
+      }
+
+      @media (min-width: 720px) {
+        main { padding-top: 64px; }
+        .product-link { min-height: 80px; padding-right: 18px; }
+      }
+
+      @media (max-width: 370px) {
+        main { padding-inline: 12px; }
+        .product-link {
+          grid-template-columns: 38px minmax(0, 1fr) 18px;
+          gap: 10px;
+          padding-inline: 10px 12px;
+        }
+        .number { width: 38px; height: 38px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .product-link { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="intro">
+        <div class="count">63 productos</div>
+        <h1>Mis productos recomendados</h1>
+        <p>Toca cualquier producto para verlo en Amazon.</p>
+      </header>
+
+      <ol class="links">
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0DLJVBMPM?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">01</span><span class="copy"><span class="name">CONFU 110,000 RPM</span><span class="description">Secadora iónica (vs Dyson)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0FX9GWHCH?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">02</span><span class="copy"><span class="name">Trucozie T350</span><span class="description">Aspiradora inalámbrica (vs Dyson V8)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0FKN2FSZS?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">03</span><span class="copy"><span class="name">Bob and Brad Q2</span><span class="description">Pistola de masaje con calor (vs Theragun)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B007Q2M17K?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">04</span><span class="copy"><span class="name">Magnasonic MGUC500</span><span class="description">Limpiador ultrasónico</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0D5H6GFVJ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">05</span><span class="copy"><span class="name">Flairosol Olivia</span><span class="description">Atomizador de niebla fina</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0B5TD8CTF?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">06</span><span class="copy"><span class="name">Potaroma 3 en 1</span><span class="description">Juguete para gato</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B00HWEIKZO?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">07</span><span class="copy"><span class="name">Victoria 8&quot;</span><span class="description">Prensa de tortillas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07Z8Y47HF?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">08</span><span class="copy"><span class="name">Comfier CF-4902</span><span class="description">Masajeador de cuero cabelludo</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B01MUBU0YC?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">09</span><span class="copy"><span class="name">AquaBliss SF100</span><span class="description">Filtro de regadera</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0BGQWS812?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">10</span><span class="copy"><span class="name">Potaroma</span><span class="description">Rompecabezas para perro</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0BM8VS13P?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">11</span><span class="copy"><span class="name">SwitchBot Hub 2</span><span class="description">Casa inteligente</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B08GD3D9YJ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">12</span><span class="copy"><span class="name">Chamberlain</span><span class="description">Control inteligente de cochera</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B08ZK4Q3JF?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">13</span><span class="copy"><span class="name">Maxpower Planet</span><span class="description">Deslanador para mascotas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CNY1F31S?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">14</span><span class="copy"><span class="name">Chefman 4Qt</span><span class="description">Freidora de aire</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B011NT1ODS?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">15</span><span class="copy"><span class="name">Esky ES-KF02</span><span class="description">Localizador de llaves</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0BK2SC18T?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">16</span><span class="copy"><span class="name">GuruNanda</span><span class="description">Tiras blanqueadoras dentales</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B01AZB6TQW?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">17</span><span class="copy"><span class="name">Beast 30oz</span><span class="description">Termo</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B09R5R8MCM?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">18</span><span class="copy"><span class="name">Dimecano</span><span class="description">Cepillo alisador térmico</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07G7BT8QV?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">19</span><span class="copy"><span class="name">Aqua Crest CF06A</span><span class="description">Filtros para jarra (6 pack)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0815XGHZ7?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">20</span><span class="copy"><span class="name">Aidea</span><span class="description">Esponjas (24 uds)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B079V9JCQ2?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">21</span><span class="copy"><span class="name">Solimo House Blend</span><span class="description">100 cápsulas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B079V9JDQB?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">22</span><span class="copy"><span class="name">Solimo French Roast</span><span class="description">100 cápsulas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B079V8CKDM?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">23</span><span class="copy"><span class="name">Solimo Dark Roast</span><span class="description">100 cápsulas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07VG4S38C?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">24</span><span class="copy"><span class="name">Fullstar Chopper</span><span class="description">Picador y rebanador de verduras 6 en 1</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07M687LCP?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">25</span><span class="copy"><span class="name">Kitchen Gizmo Strainer</span><span class="description">Colador de silicón que se engancha a la olla</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B082314NFL?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">26</span><span class="copy"><span class="name">Zulay Espumador</span><span class="description">Espumador eléctrico para café y lattes</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B072N94M7L?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">27</span><span class="copy"><span class="name">Zulay Exprimidor</span><span class="description">Exprimidor manual 2 en 1 para cítricos</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CBDF4SMK?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">28</span><span class="copy"><span class="name">Sevenblue Organizador</span><span class="description">Organizador ajustable de 2 niveles bajo el fregadero</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0BZCTXKPZ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">29</span><span class="copy"><span class="name">Vtopmart Cajones</span><span class="description">Cajones apilables transparentes 4 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0H2CZK4FG?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">30</span><span class="copy"><span class="name">Magheo Porta Ollas</span><span class="description">Rack organizador para ollas y sartenes</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B094JBXLWM?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">31</span><span class="copy"><span class="name">Housolution Tapas</span><span class="description">Soporte organizador para tapas de ollas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0861152SV?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">32</span><span class="copy"><span class="name">Bedsure Fundas Satín</span><span class="description">Fundas de almohada de satén</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0B38YVCCZ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">33</span><span class="copy"><span class="name">Longhui Manta</span><span class="description">Manta gruesa tejida para sofá</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B081CHLF46?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">34</span><span class="copy"><span class="name">JALL Despertador</span><span class="description">Reloj despertador con amanecer simulado</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0DKP3D4X5?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">35</span><span class="copy"><span class="name">Fenmzee Lámparas</span><span class="description">Lámparas de noche par (2 piezas)</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B074PR4FRT?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">36</span><span class="copy"><span class="name">SparkPod Regadera</span><span class="description">Regadera de lluvia de alta presión</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B081VQTG2Q?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">37</span><span class="copy"><span class="name">Rubbermaid Scrubber</span><span class="description">Cepillo eléctrico para limpieza</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B08ZKR4JRJ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">38</span><span class="copy"><span class="name">Secura Dispensador</span><span class="description">Dispensador de jabón en espuma</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0C6QFP67V?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">39</span><span class="copy"><span class="name">Luz Nocturna WC</span><span class="description">Luz nocturna para inodoro 2 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07G7XG6BV?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">40</span><span class="copy"><span class="name">Holikme Cepillos</span><span class="description">Set de cepillos para taladro</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B01M0H7YC2?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">41</span><span class="copy"><span class="name">TubShroom Atrapa Pelo</span><span class="description">Atrapapelos para coladera de regadera</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CJ1NHWGX?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">42</span><span class="copy"><span class="name">Scrub Daddy 3-Pack</span><span class="description">Esponjas que cambian con la temperatura</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B09NY1WXCQ?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">43</span><span class="copy"><span class="name">DEEHYO Plumero</span><span class="description">Set de plumero de 9 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0BFVVKVSK?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">44</span><span class="copy"><span class="name">MIULEE Fundas Cojín</span><span class="description">Fundas decorativas para cojines</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B01LXMVTFF?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">45</span><span class="copy"><span class="name">Homemory Velas LED</span><span class="description">Velas LED parpadeantes 24 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0FKHJ792X?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">46</span><span class="copy"><span class="name">Vanselia Florero</span><span class="description">Florero blanco decorativo</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0D9QDKM59?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">47</span><span class="copy"><span class="name">Bingyouth Calentador</span><span class="description">Lámpara calentadora de velas aromáticas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0B7JGC67R?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">48</span><span class="copy"><span class="name">Lifewit Cestos</span><span class="description">Cestos de ropa 2 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CKPNQBJF?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">49</span><span class="copy"><span class="name">SpaceAid Organizador</span><span class="description">Organizador colgante para clóset</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0F25LM75R?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">50</span><span class="copy"><span class="name">Kotkn Organizador</span><span class="description">Organizador sobre la puerta</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B086G55QJ4?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">51</span><span class="copy"><span class="name">SMARTAKE Charolas</span><span class="description">Charolas organizadoras para cajones</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CFRHMJG3?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">52</span><span class="copy"><span class="name">Yaledi Difusor</span><span class="description">Difusor de aroma con flama</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0CD1JWN1Q?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">53</span><span class="copy"><span class="name">Haotao Lámpara Pájaro</span><span class="description">Lámpara decorativa de pájaro</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0991Q94KP?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">54</span><span class="copy"><span class="name">Govee Tira LED</span><span class="description">Tira LED RGBIC inteligente</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B07GMQ42GG?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">55</span><span class="copy"><span class="name">Twinkle Star Luces</span><span class="description">Luces de hadas para decoración</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0C1W5W332?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">56</span><span class="copy"><span class="name">DMoose Caja Cables</span><span class="description">Caja organizadora de cables 2 piezas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B00JX1ZS5O?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">57</span><span class="copy"><span class="name">SABRENT Hub USB</span><span class="description">Hub USB de 4 puertos</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B08HV3MPFD?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">58</span><span class="copy"><span class="name">Phomemo Etiquetadora</span><span class="description">Mini impresora de etiquetas</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B08V91626C?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">59</span><span class="copy"><span class="name">TRZLIFE Aspiradora</span><span class="description">Mini aspiradora de escritorio</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B0DS1S4YK4?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">60</span><span class="copy"><span class="name">HOMEBEST Luces</span><span class="description">Luces LED RGB para gabinete</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B00KHX9MCW?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">61</span><span class="copy"><span class="name">iFox Bocina</span><span class="description">Bocina Bluetooth para regadera</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B091MGZF5L?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">62</span><span class="copy"><span class="name">Zulay Mini Espumador</span><span class="description">Mini batidor espumador portátil</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+        <li>
+          <a class="product-link" href="https://www.amazon.com/dp/B098355866?tag=alexisrecomie-20" target="_blank" rel="noopener noreferrer sponsored">
+            <span class="number">63</span><span class="copy"><span class="name">Voweek Cepillo</span><span class="description">Cepillo giratorio de limpieza</span></span><svg class="arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </li>
+      </ol>
+
+      <footer>Como afiliado de Amazon gano comisiones por compras elegibles.</footer>
+    </main>
+  </body>
+</html>
